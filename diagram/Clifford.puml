@@ -2,6 +2,7 @@
 'https://plantuml.com/class-diagram
 
 interface FileSystem {
+    + getName(): String
 }
 
 class Directory implements FileSystem {
