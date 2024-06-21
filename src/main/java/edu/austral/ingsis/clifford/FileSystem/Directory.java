@@ -6,7 +6,7 @@ import java.util.List;
 public class Directory implements FileSystem{
   private String name;
 
-  private List<FileSystem> file;
+  private ArrayList<FileSystem> file;
 
   private Directory parent;
 
@@ -30,6 +30,30 @@ public class Directory implements FileSystem{
     this.parent = parent;
   }
 
+  public void addFile(FileSystem file) {
+    this.file.add(file);
+    file.setParent(this);
+  }
 
+  public void removeFile(String name){
+    for (FileSystem file : this.file) {
+      if (file.getName().equals(name)) {
+        this.file.remove(file);
+        return;
+      }
+    }
+  }
+
+  public ArrayList<FileSystem> getFiles(){
+    return file;
+  }
+  public FileSystem getFile(String name){
+    for (FileSystem file : this.file) {
+      if (file.getName().equals(name)) {
+        return file;
+      }
+    }
+    return null;
+  }
 
 }
