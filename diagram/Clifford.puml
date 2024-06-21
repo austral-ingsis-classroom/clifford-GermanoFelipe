@@ -1,0 +1,47 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface FileSystem {
+}
+
+class Directory implements FileSystem {
+}
+
+class File implements FileSystem {
+}
+
+class Cli {
+    void executeCommand();
+}
+
+interface Command {
+    void execute();
+}
+
+class Ls implements Command {
+    void execute();
+}
+
+class Cd implements Command {
+    void execute();
+}
+
+class Touch implements Command {
+    void execute();
+}
+
+class Mkdir implements Command {
+    void execute();
+}
+
+class Rm implements Command {
+    void execute();
+}
+
+class Pwd implements Command {
+    void execute();
+}
+
+
+Cli -> Command
+@enduml
