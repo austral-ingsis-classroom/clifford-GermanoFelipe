@@ -8,9 +8,10 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Ls implements Command{
-  private Cli cli;
+  public Cli cli;
 
-  public Ls() {
+  public Ls(Cli cli) {
+    this.cli = cli;
   }
 
   @Override

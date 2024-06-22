@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Directory implements FileSystem{
-  private String name;
+  public String name;
 
-  private List<FileSystem> childrenFile;
+  public List<FileSystem> childrenFile;
 
-  private Directory parent;
+  public Directory parent;
 
-  public Directory(String name, List<FileSystem> childrenFile) {
+  public Directory(String name) {
     this.name = name;
     this.childrenFile = new ArrayList<>();
   }
