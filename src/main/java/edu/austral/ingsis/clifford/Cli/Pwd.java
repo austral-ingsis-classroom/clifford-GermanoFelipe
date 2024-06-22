@@ -19,9 +19,9 @@ public class Pwd implements Command{
 
 
   public String path(Directory directory){
-    if (directory.parent == null){
+    if (directory.parentDirectory == null){
       return directory.name;
     }
-    return path(directory.parent) + "/" + directory.name;
+    return path(directory.parentDirectory) + "/" + directory.name;
   }
 }

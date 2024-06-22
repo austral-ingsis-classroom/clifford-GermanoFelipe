@@ -1,7 +1,7 @@
 package edu.austral.ingsis.clifford.FileSystem;
 
 public class File implements FileSystem{
-  private String name;
+  private final String name;
 
   public Directory parent;
 
@@ -20,12 +20,12 @@ public class File implements FileSystem{
   }
 
   @Override
-  public Directory getParent() {
+  public Directory getParentDirectory() {
     return parent;
   }
 
   @Override
-  public void setParent(Directory parent) {
-    this.parent = parent;
+  public void setParentDirectory(Directory parentDirectory) {
+    this.parent = parentDirectory;
   }
 }

@@ -3,7 +3,7 @@ package edu.austral.ingsis.clifford.FileSystem;
 public interface FileSystem {
   public String getName();
 
-  public Directory getParent();
+  public Directory getParentDirectory();
 
-  public void setParent(Directory parent);
+  public void setParentDirectory(Directory parentDirectory);
 }

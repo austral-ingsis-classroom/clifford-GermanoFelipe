@@ -16,7 +16,7 @@ public class Mkdir implements Command{
   public String execute(List<String> flag, List<String> arguments) {
     String name = arguments.get(0);
     Directory directory = new Directory(name);
-    directory.parent = cli.currentDirectory;
+    directory.parentDirectory = cli.currentDirectory;
     cli.currentDirectory.addChild(directory);
     return "'" + name + "' directory created";
   }

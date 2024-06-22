@@ -8,16 +8,16 @@ public class Directory implements FileSystem{
 
   public List<FileSystem> childrenFile;
 
-  public Directory parent;
+  public Directory parentDirectory;
 
   public Directory(String name) {
     this.name = name;
     this.childrenFile = new ArrayList<>();
   }
 
-  private Directory(String name, Directory parent, List<FileSystem> childrenFile) {
+  private Directory(String name, Directory parentDirectory, List<FileSystem> childrenFile) {
     this.name = name;
-    this.parent = parent;
+    this.parentDirectory = parentDirectory;
     this.childrenFile = childrenFile;
   }
 
@@ -27,18 +27,18 @@ public class Directory implements FileSystem{
   }
 
   @Override
-  public Directory getParent() {
-    return parent;
+  public Directory getParentDirectory() {
+    return parentDirectory;
   }
 
   @Override
-  public void setParent(Directory parent) {
-    this.parent = parent;
+  public void setParentDirectory(Directory parentDirectory) {
+    this.parentDirectory = parentDirectory;
   }
 
   public void addFile(FileSystem file) {
     this.childrenFile.add(file);
-    file.setParent(this);
+    file.setParentDirectory(this);
   }
 
   public void removeFile(String name){
@@ -57,7 +57,7 @@ public class Directory implements FileSystem{
   public void addChild (FileSystem file){
     FileSystem copyFile = file;
     if (file instanceof Directory directory){
-      copyFile = new Directory(directory.getName(), directory.parent, directory.getChildrenFile());
+      copyFile = new Directory(directory.getName(), directory.parentDirectory, directory.childrenFile);
     }
     else if (file instanceof File file1){
       copyFile = new File(file1.getName(), file1.parent);
@@ -66,15 +66,21 @@ public class Directory implements FileSystem{
   }
 
   public FileSystem getChild(String name){
-    return childrenFile.stream().filter(file -> file.getName().equals(name)).findFirst().orElse(null);
+    return childrenFile.stream().filter(child -> child.getName().equals(name)).
+            findFirst().orElse(null);
   }
 
   public void removeChild(String file){
-    childrenFile.removeIf(file1 -> file1.getName().equals(file));
+    childrenFile.removeIf(fileToRemove -> fileToRemove.getName().equals(file));
   }
 
-  public boolean notContains(String name){
-    return childrenFile.stream().noneMatch(file -> file.getName().equals(name));
+  public boolean notContains(String name, Type type){
+    return getChildrenFile().stream().noneMatch(file ->
+            file.getName().equals(name) && equalType(type, file) );
   }
 
+
+  public boolean equalType(Type type, FileSystem child){
+    return type == Type.DIRECTORY ? child instanceof Directory : child instanceof File;
+  }
 }

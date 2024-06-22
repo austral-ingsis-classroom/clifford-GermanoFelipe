@@ -15,12 +15,12 @@ public class Cd implements Command{
   @Override
   public String execute(List<String> flag, List<String> arguments) {
     String dirName = arguments.get(0);
-    if (dirName.equals("/") || (dirName.equals("..") && cli.currentDirectory.getParent() == null)) {
+    if (dirName.equals("/") || (dirName.equals("..") && cli.currentDirectory.getParentDirectory() == null)) {
       dirName = "/";
       return "moved to directory '" + dirName + "'";
     }
     if (dirName.equals("..")){
-      cli.currentDirectory = cli.currentDirectory.parent;
+      cli.currentDirectory = cli.currentDirectory.parentDirectory;
       return "moved to directory " + "'/'";
     }
     return pathDir(dirName);
