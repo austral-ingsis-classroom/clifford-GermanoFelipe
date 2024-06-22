@@ -1,5 +1,7 @@
 package edu.austral.ingsis.clifford.Cli;
 
+import edu.austral.ingsis.clifford.FileSystem.Directory;
+
 import java.util.List;
 
 public class Cd implements Command{
@@ -12,6 +14,27 @@ public class Cd implements Command{
 
   @Override
   public String execute(List<String> flag, List<String> arguments) {
-    return null;
+    String dirName = arguments.get(0);
+    if (dirName.equals("/") || (dirName.equals("..") && cli.currentDirectory.getParent() == null)) {
+      dirName = "/";
+      return "moved to directory '" + dirName + "'";
+    }
+    if (dirName.equals("..")){
+      cli.currentDirectory = cli.currentDirectory.parent;
+      return "moved to directory " + "'/'";
+    }
+    return pathDir(dirName);
+  }
+
+
+  public String pathDir(String dirName){
+    String[] directories = dirName.split("/");
+    for (String path : directories) {
+      if (cli.currentDirectory.notContains(path)) {
+        return "'" + dirName + "' directory does not exist";
+      }
+      cli.currentDirectory = (Directory) cli.currentDirectory.getChild(path);
+    }
+    return "moved to directory '" + cli.currentDirectory.getName() + "'";
   }
 }
