@@ -19,7 +19,7 @@ public class Cli {
         "mkdir",  new Mkdir(this),
         "pwd",    new Pwd(this),
         "touch",  new Touch(this),
-        "rm",     new Rm()
+        "rm",     new Rm(this)
     );
   }
 
