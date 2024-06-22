@@ -5,11 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import java.util.Map;
+
+import edu.austral.ingsis.clifford.Cli.Cli;
+import edu.austral.ingsis.clifford.FileSystem.Directory;
 import org.junit.jupiter.api.Test;
 
 public class FileSystemTests {
 
-  private final FileSystemRunner runner = commands -> List.of();
+  private Cli cli = new Cli(new Directory(""));
+  private FileSystemRunner runner = new Runner(cli);
 
   private void executeTest(List<Map.Entry<String, String>> commandsAndResults) {
     final List<String> commands = commandsAndResults.stream().map(Map.Entry::getKey).toList();

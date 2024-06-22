@@ -10,7 +10,7 @@ public class Cli {
   public Directory currentDirectory;
   private Map<String, Command> commands;
 
-  public Cli(Directory root, Map<String, Command> commands) {
+  public Cli(Directory root) {
     this.root = root;
     this.currentDirectory = root;
     this.commands = Map.of(
