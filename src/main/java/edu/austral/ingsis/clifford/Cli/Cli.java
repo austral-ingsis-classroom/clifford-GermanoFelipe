@@ -14,12 +14,12 @@ public class Cli {
     this.root = root;
     this.currentDirectory = root;
     this.commands = Map.of(
-      "ls", new Ls(this),
-            "cd", new Cd(this),
-            "mkdir", new Mkdir(this),
-            "pwd", new Pwd(),
-            "touch", new Touch(this),
-            "rm", new Rm()
+        "ls",     new Ls(this),
+        "cd",     new Cd(this),
+        "mkdir",  new Mkdir(this),
+        "pwd",    new Pwd(this),
+        "touch",  new Touch(this),
+        "rm",     new Rm()
     );
   }
 
