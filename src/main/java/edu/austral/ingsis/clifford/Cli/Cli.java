@@ -29,6 +29,6 @@ public class Cli {
     if (!commands.containsKey(commandLine.command)) {
       return "Command not found";
     }
-    return commands.get(commandLine.command).execute(commandLine.arguments);
+    return commands.get(commandLine.command).execute(commandLine.flags, commandLine.arguments);
   }
 }

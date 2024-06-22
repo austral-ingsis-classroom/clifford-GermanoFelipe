@@ -6,13 +6,19 @@ import java.util.List;
 public class Directory implements FileSystem{
   private String name;
 
-  private ArrayList<FileSystem> file;
+  private List<FileSystem> childrenFile;
 
   private Directory parent;
 
-  public Directory(String name, List<FileSystem> file) {
+  public Directory(String name, List<FileSystem> childrenFile) {
     this.name = name;
-    this.file = new ArrayList<>();
+    this.childrenFile = new ArrayList<>();
+  }
+
+  private Directory(String name, Directory parent, List<FileSystem> childrenFile) {
+    this.name = name;
+    this.parent = parent;
+    this.childrenFile = childrenFile;
   }
 
   @Override
@@ -31,29 +37,44 @@ public class Directory implements FileSystem{
   }
 
   public void addFile(FileSystem file) {
-    this.file.add(file);
+    this.childrenFile.add(file);
     file.setParent(this);
   }
 
   public void removeFile(String name){
-    for (FileSystem file : this.file) {
+    for (FileSystem file : this.childrenFile) {
       if (file.getName().equals(name)) {
-        this.file.remove(file);
+        this.childrenFile.remove(file);
         return;
       }
     }
   }
 
-  public ArrayList<FileSystem> getFiles(){
-    return file;
+  public List<FileSystem> getChildrenFile() {
+    return childrenFile;
   }
-  public FileSystem getFile(String name){
-    for (FileSystem file : this.file) {
-      if (file.getName().equals(name)) {
-        return file;
-      }
+
+  public void addChild (FileSystem file){
+    FileSystem copyFile = file;
+    if (file instanceof Directory directory){
+      copyFile = new Directory(directory.getName(), directory.parent, directory.getChildrenFile());
     }
-    return null;
+    else if (file instanceof File file1){
+      copyFile = new File(file1.getName(), file1.parent);
+    }
+    childrenFile.add(copyFile);
+  }
+
+  public FileSystem getChild(String name){
+    return childrenFile.stream().filter(file -> file.getName().equals(name)).findFirst().orElse(null);
+  }
+
+  public void removeChild(String file){
+    childrenFile.removeIf(file1 -> file1.getName().equals(file));
+  }
+
+  public boolean notContains(String name){
+    return childrenFile.stream().noneMatch(file -> file.getName().equals(name));
   }
 
 }
