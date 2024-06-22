@@ -3,12 +3,11 @@ package edu.austral.ingsis.clifford.Cli;
 import edu.austral.ingsis.clifford.FileSystem.Directory;
 import edu.austral.ingsis.clifford.FileSystem.FileComparator;
 import edu.austral.ingsis.clifford.FileSystem.FileSystem;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class Ls implements Command{
+public class Ls implements Command {
   public Cli cli;
 
   public Ls(Cli cli) {
@@ -20,7 +19,8 @@ public class Ls implements Command{
     Directory directory = cli.currentDirectory;
     List<FileSystem> children = directory.getChildrenFile();
 
-    List<String> childrenNames = new ArrayList<>(children.stream().map(FileSystem::getName).toList());
+    List<String> childrenNames =
+        new ArrayList<>(children.stream().map(FileSystem::getName).toList());
 
     return outPut(childrenNames, flag);
   }
@@ -36,7 +36,6 @@ public class Ls implements Command{
     Comparator<String> sort = getComparator(flag);
     childrenNames.sort(sort);
     return getString(childrenNames);
-
   }
 
   public String getString(List<String> childrenNames) {
@@ -55,8 +54,10 @@ public class Ls implements Command{
   }
 
   public Comparator<String> getComparator(List<String> flag) {
-    return flag.get(0).equals("--ord=asc") ?
-            Comparator.naturalOrder() :
-            Comparator.reverseOrder();
+    if (flag.get(0).equals("--ord=asc")) {
+      return Comparator.naturalOrder();
+    } else {
+      return Comparator.reverseOrder();
+    }
   }
 }

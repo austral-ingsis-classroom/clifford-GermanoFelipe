@@ -1,14 +1,14 @@
 package edu.austral.ingsis.clifford.Cli;
 
+import edu.austral.ingsis.clifford.FileSystem.File;
 import edu.austral.ingsis.clifford.FileSystem.Type;
-
 import java.util.List;
 
-public class Rm implements Command{
+public class Rm implements Command {
 
   public Cli cli;
 
-  public Rm (Cli cli){
+  public Rm(Cli cli) {
     this.cli = cli;
   }
 
@@ -17,37 +17,36 @@ public class Rm implements Command{
     String name = arguments.get(0);
     Type type = isFile(name) ? Type.FILE : Type.DIRECTORY;
     String msg = "";
-    if (type.equals(Type.DIRECTORY)){
+    if (type.equals(Type.DIRECTORY)) {
       msg = removeDir(name, flag);
     }
-    if (type.equals(Type.FILE)){
+    if (type.equals(Type.FILE)) {
       msg = removeFile(name);
     }
 
     return msg;
   }
 
-
-  public boolean isFile (String name){
-    return cli.currentDirectory.getChild(name) != null;
+  public boolean isFile(String name) {
+    return cli.currentDirectory.getChild(name) instanceof File;
   }
-  public String removeFile (String name){
+
+  public String removeFile(String name) {
     cli.currentDirectory.removeChild(name);
     return "'" + name + "' removed";
   }
 
-  public boolean notvalidFlag (List<String> flag){
+  public boolean notvalidFlag(List<String> flag) {
     return !flag.contains("--recursive");
   }
 
-  public String removeDir (String name, List<String> flag){
-    if (!cli.currentDirectory.getChildrenFile().isEmpty()){
+  public String removeDir(String name, List<String> flag) {
+    if (!cli.currentDirectory.getChildrenFile().isEmpty()) {
       if (flag.isEmpty() || notvalidFlag(flag)) {
-        return "'" + name + "' is directory";
+        return "cannot remove '" + name + "', is directory";
       }
       cli.currentDirectory.removeChild(name);
-    }
-    else {
+    } else {
       cli.currentDirectory.removeChild(name);
     }
     return "'" + name + "' removed";

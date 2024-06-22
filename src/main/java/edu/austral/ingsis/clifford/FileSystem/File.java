@@ -1,6 +1,6 @@
 package edu.austral.ingsis.clifford.FileSystem;
 
-public class File implements FileSystem{
+public class File implements FileSystem {
   private final String name;
 
   public Directory parent;

@@ -3,7 +3,7 @@ package edu.austral.ingsis.clifford.FileSystem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Directory implements FileSystem{
+public class Directory implements FileSystem {
   public String name;
 
   public List<FileSystem> childrenFile;
@@ -41,7 +41,7 @@ public class Directory implements FileSystem{
     file.setParentDirectory(this);
   }
 
-  public void removeFile(String name){
+  public void removeFile(String name) {
     for (FileSystem file : this.childrenFile) {
       if (file.getName().equals(name)) {
         this.childrenFile.remove(file);
@@ -54,33 +54,34 @@ public class Directory implements FileSystem{
     return childrenFile;
   }
 
-  public void addChild (FileSystem file){
+  public void addChild(FileSystem file) {
     FileSystem copyFile = file;
-    if (file instanceof Directory directory){
-      copyFile = new Directory(directory.getName(), directory.parentDirectory, directory.childrenFile);
-    }
-    else if (file instanceof File file1){
+    if (file instanceof Directory directory) {
+      copyFile =
+          new Directory(directory.getName(), directory.parentDirectory, directory.childrenFile);
+    } else if (file instanceof File file1) {
       copyFile = new File(file1.getName(), file1.parent);
     }
     childrenFile.add(copyFile);
   }
 
-  public FileSystem getChild(String name){
-    return childrenFile.stream().filter(child -> child.getName().equals(name)).
-            findFirst().orElse(null);
+  public FileSystem getChild(String name) {
+    return childrenFile.stream()
+        .filter(child -> child.getName().equals(name))
+        .findFirst()
+        .orElse(null);
   }
 
-  public void removeChild(String file){
+  public void removeChild(String file) {
     childrenFile.removeIf(fileToRemove -> fileToRemove.getName().equals(file));
   }
 
-  public boolean notContains(String name, Type type){
-    return getChildrenFile().stream().noneMatch(file ->
-            file.getName().equals(name) && equalType(type, file) );
+  public boolean notContains(String name, Type type) {
+    return getChildrenFile().stream()
+        .noneMatch(file -> file.getName().equals(name) && equalType(type, file));
   }
 
-
-  public boolean equalType(Type type, FileSystem child){
+  public boolean equalType(Type type, FileSystem child) {
     return type == Type.DIRECTORY ? child instanceof Directory : child instanceof File;
   }
 }

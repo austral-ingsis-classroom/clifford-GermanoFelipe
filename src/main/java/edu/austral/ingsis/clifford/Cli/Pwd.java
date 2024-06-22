@@ -1,14 +1,13 @@
 package edu.austral.ingsis.clifford.Cli;
 
 import edu.austral.ingsis.clifford.FileSystem.Directory;
-
 import java.util.List;
 
-public class Pwd implements Command{
+public class Pwd implements Command {
 
   public Cli cli;
 
-  public Pwd (Cli cli){
+  public Pwd(Cli cli) {
     this.cli = cli;
   }
 
@@ -17,11 +16,10 @@ public class Pwd implements Command{
     return path(cli.currentDirectory);
   }
 
-
-  public String path(Directory directory){
-    if (directory.parentDirectory == null){
-      return directory.name;
+  public String path(Directory directory) {
+    if (directory.parentDirectory == null) {
+      return directory.getName();
     }
-    return path(directory.parentDirectory) + "/" + directory.name;
+    return path(directory.parentDirectory) + "/" + directory.getName();
   }
 }

@@ -1,7 +1,6 @@
 package edu.austral.ingsis;
 
 import edu.austral.ingsis.clifford.Cli.Cli;
-
 import java.util.List;
 
 public class Runner implements FileSystemRunner {

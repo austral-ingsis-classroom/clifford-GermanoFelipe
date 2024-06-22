@@ -3,11 +3,10 @@ package edu.austral.ingsis;
 import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.List;
-import java.util.Map;
-
 import edu.austral.ingsis.clifford.Cli.Cli;
 import edu.austral.ingsis.clifford.FileSystem.Directory;
+import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 public class FileSystemTests {
@@ -34,7 +33,7 @@ public class FileSystemTests {
             entry("ls", "horace"),
             entry("mkdir emily", "'emily' directory created"),
             entry("ls", "horace emily"),
-            entry("ls --ord=asc", "emily horace")));
+            entry("ls --ord=desc", "horace emily")));
   }
 
   @Test
@@ -49,7 +48,7 @@ public class FileSystemTests {
             entry("pwd", "/emily"),
             entry("touch elizabeth.txt", "'elizabeth.txt' file created"),
             entry("mkdir t-bone", "'t-bone' directory created"),
-            entry("ls", "elizabeth.txt t-bone")));
+            entry("ls", "t-bone elizabeth.txt")));
   }
 
   @Test
@@ -63,7 +62,7 @@ public class FileSystemTests {
             entry("touch elizabeth.txt", "'elizabeth.txt' file created"),
             entry("mkdir t-bone", "'t-bone' directory created"),
             entry("ls", "t-bone elizabeth.txt"),
-            entry("rm t-bone", "cannot remove 't-bone', is a directory"),
+            entry("rm t-bone", "cannot remove 't-bone', is directory"),
             entry("rm --recursive t-bone", "'t-bone' removed"),
             entry("ls", "elizabeth.txt"),
             entry("rm elizabeth.txt", "'elizabeth.txt' removed"),
@@ -122,6 +121,6 @@ public class FileSystemTests {
             entry("ls", "emily emily.txt jetta.txt"),
             entry("rm --recursive emily", "'emily' removed"),
             entry("ls", "emily.txt jetta.txt"),
-            entry("ls --ord=desc", "jetta.txt emily.txt")));
+            entry("ls --ord=desc", "emily.txt jetta.txt")));
   }
 }
