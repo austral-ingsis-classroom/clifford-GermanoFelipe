@@ -3,46 +3,61 @@
 
 interface FileSystem {
     + getName(): String
+    + getParentDirectory(): Directory
+    + void setParentDirectory(Directory parentDirectory)
 }
 
 class Directory implements FileSystem {
+    + String name;
+    + List<FileSystem> childrenFile;
+    + Directory parentDirectory;
+    + getName(): String
+    + getParentDirectory(): Directory
+    + void setParentDirectory(Directory parentDirectory)
 }
 
 class File implements FileSystem {
+    - String name;
+    + Directory parent;
+    + getName(): String
+    + getParentDirectory(): Directory
+    + void setParentDirectory(Directory parentDirectory)
 }
 
 class Cli {
-    void executeCommand();
+    + void executeCommand();
+    - CommandLine build(String[] arguments);
 }
 
 interface Command {
-    void execute();
+    + void execute();
 }
 
 class Ls implements Command {
-    void execute();
+    + void execute();
 }
 
 class Cd implements Command {
-    void execute();
+    + void execute();
 }
 
 class Touch implements Command {
-    void execute();
+    + void execute();
 }
 
 class Mkdir implements Command {
-    void execute();
+    + void execute();
 }
 
 class Rm implements Command {
-    void execute();
+    + void execute();
 }
 
 class Pwd implements Command {
-    void execute();
+    + void execute();
 }
 
 
-Cli -> Command
+Cli -[#red]> Command
+Command -[#blue]> FileSystem
 @enduml
